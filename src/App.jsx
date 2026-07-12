@@ -111,12 +111,14 @@ function App() {
     return colors[diff] || '#6b7280';
   };
 
+  if (!quizStarted) {
     return (
       <div className="app">
         <header className="header">
           <h1>🎮 Git Mastery Quiz</h1>
           <button 
             className="theme-toggle" 
+            onClick={() => setDarkMode(!darkMode)}
           >
             {darkMode ? '☀️' : '🌙'}
           </button>
@@ -196,6 +198,7 @@ function App() {
           <h1>🎮 Git Mastery Quiz</h1>
           <button 
             className="theme-toggle" 
+            onClick={() => setDarkMode(!darkMode)}
           >
             {darkMode ? '☀️' : '🌙'}
           </button>
@@ -261,6 +264,7 @@ function App() {
           <span className="score-display-header">Score: {score}/{currentQuestionIndex + (showExplanation ? 1 : 0)}</span>
           <button 
             className="theme-toggle" 
+            onClick={() => setDarkMode(!darkMode)}
           >
             {darkMode ? '☀️' : '🌙'}
           </button>
@@ -323,6 +327,12 @@ function App() {
                 {selectedAnswer === currentQuestion.correct ? '✓ Correct!' : '✗ Incorrect'}
               </h3>
               <p>{currentQuestion.explanation}</p>
+              {currentQuestion.additional_details && (
+                <div className="additional-details">
+                  <h4>📚 Learn More:</h4>
+                  <p>{currentQuestion.additional_details}</p>
+                </div>
+              )}
               <button className="btn-primary next-btn" onClick={nextQuestion}>
                 {currentQuestionIndex + 1 < filteredQuestions.length ? 'Next Question →' : 'Finish Quiz'}
               </button>
